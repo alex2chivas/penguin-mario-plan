@@ -1,9 +1,10 @@
 import { createProject } from './projectActions';
-import { signIn } from './authAction';
+import { signIn, signOut } from './authAction';
 
 export {
 	// PROJECT ACTIONS
 	createProject,
 	// AUTH ACTIONS
-	signIn
+	signIn,
+	signOut
 };
