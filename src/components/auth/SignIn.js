@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/rootActions';
+import { Redirect } from 'react-router-dom';
 
 const SignIn = (props) => {
-	const { authError } = props;
+	const { authError, auth } = props;
+
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 
@@ -30,6 +32,10 @@ const SignIn = (props) => {
 		props.signIn(userLogin);
 	};
 
+	if (auth.uid) {
+		return <Redirect to='/' />;
+	}
+
 	return (
 		<div className='container'>
 			<form onSubmit={handleSubmit} className='white' autoComplete='off'>
@@ -53,7 +59,8 @@ const SignIn = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		authError: state.auth.authError
+		authError: state.auth.authError,
+		auth: state.firebase.auth
 	};
 };
 
