@@ -4,17 +4,18 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { createStore,applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import rootReducer from './store/reducers/rootReducer';
 import { reduxFirestore, getFirestore, createFirestoreInstance } from 'redux-firestore';
 import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
 import firebase from 'firebase/app';
-import fbConfig from './components/config/fbConfig'
+import fbConfig from './components/config/fbConfig';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistConfig } from './components/config/persistConfig'
+import { persistConfig } from './components/config/persistConfig';
+import { AuthIsLoaded } from './components/config/authIsLoaded';
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose();
@@ -37,14 +38,16 @@ const rrfProps = {
 };
 
 ReactDOM.render(
-  <PersistGate loading={null} persistor={persistor}>
-    <Provider store = {store}>
-      <ReactReduxFirebaseProvider {...rrfProps}>
-        <App />
-      </ReactReduxFirebaseProvider>
-    </Provider>
-  </PersistGate>,
-  document.getElementById('root')
+	<PersistGate loading={null} persistor={persistor}>
+		<Provider store={store}>
+			<ReactReduxFirebaseProvider {...rrfProps}>
+				<AuthIsLoaded>
+					<App />
+				</AuthIsLoaded>
+			</ReactReduxFirebaseProvider>
+		</Provider>
+	</PersistGate>,
+	document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
