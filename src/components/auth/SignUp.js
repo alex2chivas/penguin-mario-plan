@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import { signUp } from '../../store/actions/rootActions';
+
 const SignUp = (props) => {
-	const { auth } = props;
+	const { auth, authError } = props;
 
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
@@ -32,10 +34,15 @@ const SignUp = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(email);
-		console.log(password);
-		console.log(firstName);
-		console.log(lastName);
+
+		const signUpUser = {
+			email,
+			password,
+			firstName,
+			lastName
+		};
+
+		props.signUp(signUpUser);
 	};
 
 	if (auth.uid) {
@@ -45,7 +52,7 @@ const SignUp = (props) => {
 	return (
 		<div className='container'>
 			<form onSubmit={handleSubmit} className='white' autoComplete='off'>
-				<h5 className='grey-text text-darken-3'>Sign In</h5>
+				<h5 className='grey-text text-darken-3'>Sign Up</h5>
 				<div className='input-field'>
 					<label htmlFor='email'>Email</label>
 					<input type='email' id='email' onChange={handleChange} autoComplete='off' />
@@ -64,6 +71,7 @@ const SignUp = (props) => {
 				</div>
 				<div className='input-field'>
 					<button className='btn pink lighten-1 z-depth-0'>SIGN UP</button>
+					<div className='red-text center'>{authError ? <p> {authError.message} </p> : null}</div>
 				</div>
 			</form>
 		</div>
@@ -72,8 +80,15 @@ const SignUp = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.firebase.auth
+		auth: state.firebase.auth,
+		authError: state.auth.authError
 	};
 };
 
-export default connect(mapStateToProps)(SignUp);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		signUp: (newUser) => dispatch(signUp(newUser))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
