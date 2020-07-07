@@ -28,6 +28,7 @@ const CreateProject = React.memo((props) => {
 		};
 
 		props.createProject(project);
+		props.history.push('/');
 	};
 
 	const { auth } = props;
