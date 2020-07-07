@@ -30,9 +30,16 @@ const store = createStore(
 
 const persistor = persistStore(store);
 
+const profileSpecificProps = {
+	userProfile: 'users',
+	useFirestoreForProfile: true,
+	enableRedirectHandling: false,
+	resetBeforeLogin: false
+};
+
 const rrfProps = {
 	firebase,
-	config: fbConfig,
+	config: profileSpecificProps,
 	dispatch: store.dispatch,
 	createFirestoreInstance
 };
