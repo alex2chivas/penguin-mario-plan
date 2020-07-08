@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProject } from '../../store/actions/rootActions';
 
-const CreateProject = React.memo((props) => {
+const CreateProject = (props) => {
 	const [ title, setTitle ] = useState('');
 	const [ content, setContent ] = useState('');
 
@@ -55,7 +55,7 @@ const CreateProject = React.memo((props) => {
 			</form>
 		</div>
 	);
-});
+};
 
 const mapStateToProps = (state) => {
 	return {
