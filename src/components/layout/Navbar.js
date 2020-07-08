@@ -7,7 +7,6 @@ import SignedOutLinks from './SingedOutLinks';
 
 const Navbar = (props) => {
 	const { auth, profile } = props;
-	console.log(props);
 
 	const links = auth.uid ? <SignedInLinks {...profile} /> : <SignedOutLinks />;
 
