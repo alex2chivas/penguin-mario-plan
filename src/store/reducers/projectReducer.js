@@ -1,8 +1,6 @@
 import { CREATE_PROJECT, CREATE_PROJECT_ERROR } from '../actions/types';
 
-const INITIAL_STATE = {
-	projects: []
-};
+const INITIAL_STATE = {};
 
 const projectReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
