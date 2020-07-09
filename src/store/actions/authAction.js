@@ -37,6 +37,7 @@ export const signUp = (newUser) => (dispatch, getState, { getFirebase, getFirest
 		.auth()
 		.createUserWithEmailAndPassword(newUser.email, newUser.password)
 		.then((resp) => {
+			console.log(resp);
 			return firestore.collection('users').doc(resp.user.uid).set({
 				firstName: newUser.firstName,
 				lastName: newUser.lastName,
