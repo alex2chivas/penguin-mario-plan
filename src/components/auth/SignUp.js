@@ -5,7 +5,8 @@ import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/actions/rootActions';
 
 const SignUp = (props) => {
-	const { auth, authError } = props;
+	console.log(props);
+	const { auth, authError, signUp } = props;
 
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
@@ -42,7 +43,7 @@ const SignUp = (props) => {
 			lastName
 		};
 
-		props.signUp(signUpUser);
+		signUp(signUpUser);
 	};
 
 	if (auth.uid) {
